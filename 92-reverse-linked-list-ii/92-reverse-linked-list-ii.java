@@ -20,11 +20,12 @@ class Solution {
         return prev;
     }
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        ListNode prev = null ,curr =  head;
-        int count=1;
+        int count = 1;
+        ListNode curr=head;
+        ListNode prev = null;
         while(count!=left){
             prev = curr;
-            curr=curr.next;
+            curr = curr.next;
             count++;
         }
         ListNode start = curr;
@@ -32,19 +33,19 @@ class Solution {
             curr = curr.next;
             count++;
         }
-        ListNode rest = curr.next;
+        ListNode remaining = curr.next;
         curr.next = null;
-        ListNode newHead = reverse(start);
+        ListNode reverseList = reverse(start);
         if(prev!=null){
-            prev.next = newHead;
+            prev.next = reverseList;
         }
-        curr =newHead;
+        curr = reverseList;
         while(curr.next!=null){
             curr=curr.next;
         }
-        curr.next = rest;
+        curr.next =remaining;
         if(left==1){
-            return newHead;
+            return reverseList;
         }
         else{
             return head;
