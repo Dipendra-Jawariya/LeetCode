@@ -8,7 +8,15 @@ class Solution {
             while(!s.isEmpty() && nums[i%n]>=s.peek()){
                 s.pop();
             }
-            arr[i%n] = (s.isEmpty())?-1:s.peek();
+            if(i<n){
+                if(!s.isEmpty()){
+                    arr[i] = s.peek();
+                }
+                else{
+                    arr[i] = -1;
+                }
+            }
+            // arr[i%n] = (s.isEmpty())?-1:s.peek();
             s.push(nums[i%n]);
         }
         return arr;
