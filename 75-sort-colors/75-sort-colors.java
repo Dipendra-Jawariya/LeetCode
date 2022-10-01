@@ -1,26 +1,32 @@
 class Solution {
     public void sortColors(int[] nums) {
-        int count[]={0,0,0};
-        for(int i =0;i<nums.length;i++){
-            count[nums[i]] +=1;
-        }
-        for(int i =0;i<count.length;i++){
-            System.out.print("Theee count array "+i+ " count will be ");
-            System.out.print(count[i]+" ");
-            System.out.println();
-        }
-        int j=0;
-        for(int i =0;i<nums.length;i++){
-            if(count[j]==0){
-                ++j;
-                --i;
+        int low =0;
+        int mid = 0;
+        int hi = nums.length-1;
+        int temp;
+        while(mid<=hi){
+            switch(nums[mid]){
+                case 0:{
+                        temp = nums[low];
+                        nums[low] = nums[mid];
+                        nums[mid] = temp;
+                        low++;
+                        mid++;
+                        break;
+                }
+                case 1:{
+                        mid++;
+                        break;
+                }
+                case 2 :{
+                        temp = nums[mid];
+                        nums[mid] = nums[hi];
+                        nums[hi] = temp;
+                        hi--;
+                        break;
+                }
             }
-            else{
-                nums[i] = j;
-                System.out.println("The curr index "+ i + " value is " + nums[i]);
-                --count[j];
-                System.out.println("The j is "+ j);
-            }
+            
         }
     }
 }
