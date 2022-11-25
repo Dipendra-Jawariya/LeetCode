@@ -1,21 +1,20 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        long right = 1;
-        int[] ans = new int[nums.length];
-        for(int i = nums.length - 1; i>=0; --i){
-            if(i < nums.length - 1){
-                ans[i] = ans[i+1]*nums[i+1];
+        int n = nums.length;
+        int ans[] = new int[n];
+        // taking product from the right so that when we go from left we have product except the current one
+        for(int i = n - 1; i >= 0 ; i--){
+            if(i < n - 1){
+                ans[i] = ans[i+1] * nums[i+1];
             }
             else{
                 ans[i] = 1;
             }
         }
-        
-        
-        int left = 1;
-        for(int i = 0; i<ans.length; ++i){
-            ans[i] = (left * ans[i]);
-            left *= nums[i];
+        int leftProd = 1;
+        for(int i = 0; i < nums.length; i++){
+            ans[i] = leftProd * ans[i];
+            leftProd *= nums[i];
         }
         return ans;
     }
