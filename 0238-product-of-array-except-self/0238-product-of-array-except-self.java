@@ -14,7 +14,7 @@ class Solution {
         
         int left = 1;
         for(int i = 0; i<ans.length; ++i){
-            ans[i] = (int)(left * ans[i]);
+            ans[i] = (left * ans[i]);
             left *= nums[i];
         }
         return ans;
