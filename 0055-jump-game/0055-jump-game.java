@@ -28,9 +28,17 @@ class Solution {
         return dp[0] == -1 ? false : true;
     }
     public boolean canJump(int[] nums) {
-        int dp[] = new int[nums.length];
-        Arrays.fill(dp,-1);
+        // int dp[] = new int[nums.length];
+        // Arrays.fill(dp,-1);
         // return recMemo(nums, 0, dp);
-        return tabulation(nums);
+        // return tabulation(nums);
+        
+        
+//         Space Optimization
+        int last = nums.length-1;
+        for(int i = nums.length-2;i>=0;i--){
+           if(i+nums[i]>=last) last = i;
+        }
+        return (last ==0)? true:false;
     }
 }
