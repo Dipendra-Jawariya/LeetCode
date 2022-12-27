@@ -1,32 +1,27 @@
 class Solution {
-   public int minFallingPathSum(int[][] grid) {
-        Integer[][] dp = new Integer[grid.length + 1][grid[0].length];
-        int ans = Integer.MAX_VALUE;
-        for (int i = 0; i < grid.length; i++)
-            ans = Math.min(ans, (helperRecursiveDP(grid, dp, 0, i, grid.length)));
-			// finding answers for each column of first row seperatly and storing the minimum value in variable ans 
-        return ans;
+    private int getMaxSum(int i,int j ,int m,int matrix[][],int dp[][]){
+    // Base Case
+        if(j < 0 || j >= m) return (int) Math.pow(10,9);
+        if(i == 0) return matrix[0][j];
+        if(dp[i][j] != -1) return dp[i][j];
+        int up = matrix[i][j] + getMaxSum(i-1,j,m,matrix,dp);
+        int leftDia = matrix[i][j] + getMaxSum(i-1,j-1,m,matrix,dp);
+        int rightDia = matrix[i][j] + getMaxSum(i-1,j+1,m,matrix,dp);
+        return dp[i][j] = Math.min(up,Math.min(leftDia,rightDia));
     }
-	
-// helper function which computes the result for each column in row 1
-private int helperRecursiveDP(int[][] grid, Integer[][] dp, int i, int j, int n) {
-        if (j >= n || j < 0) // base-case 1
-            return (int) Math.pow(10, 7);
-
-        if (i == n - 1)
-            return grid[i][j]; // base-case 2
-
-        if (dp[i][j] != null)
-            return dp[i][j]; // avoiding repetitive steps by returning previously calculated ans
-		
-		// Traversing path according to the question
-        int x = grid[i][j] + helperRecursiveDP(grid, dp, i + 1, j, n);
-        int y = grid[i][j] + helperRecursiveDP(grid, dp, i + 1, j + 1, n);
-        int z = grid[i][j] + helperRecursiveDP(grid, dp, i + 1, j - 1, n);
-
-        int ans = Math.min(x, Math.min(y, z)); // finding min of values returned by three traversed paths
-        dp[i][j] = ans;
-
-        return ans;
+   
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int maxi = Integer.MAX_VALUE;
+        int dp[][] = new int[n][m];
+        for(int row[]:dp){
+            Arrays.fill(row,-1);
+        }
+        for(int j = 0; j < m; j++){
+            int ans = getMaxSum(n-1,j,m,matrix,dp);
+            maxi = Math.min(maxi,ans);
+        }
+        return maxi;
     }
-}
+} 
