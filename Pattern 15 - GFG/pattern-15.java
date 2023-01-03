@@ -21,8 +21,8 @@ class Main {
 class Solution {
 
     void printTriangle(int n) {
-        for(int i = n;i>0;i--){
-            for(char ch = 'A';ch < 'A' + i;ch++){
+        for(int i = 0;i<n;i++){
+            for(char ch = 'A';ch < 'A' + (n- i);ch++){
                 System.out.print(ch);
             }
             System.out.println();
