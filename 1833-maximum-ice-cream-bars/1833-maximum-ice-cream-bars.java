@@ -6,10 +6,9 @@ class Solution {
             if(coins == 0 ) break;
             if(coins < costs[i]){
                 continue;
-            }else if(costs[i] <= coins){
-                count ++;
-                coins -= costs[i];
             }
+            count ++;
+            coins -= costs[i];
         }
         return count;
     }
