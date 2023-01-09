@@ -1,16 +1,16 @@
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int start=0;
-        int total_tank=0;
-        int cur_tank=0;
-        for(int i=0; i<gas.length; i++){
-            total_tank += gas[i]-cost[i];
-            cur_tank += gas[i]-cost[i];
-            if(cur_tank<0){
-                cur_tank = 0;
-                start=i+1;
+        int start = 0;
+        int curr_pet =0;
+        int prev_pet =0;
+        for(int i =0;i<gas.length;i++){
+            curr_pet += (gas[i] - cost[i]);
+            if(curr_pet < 0){
+                 start = i + 1;
+                prev_pet += curr_pet;
+                curr_pet =0;
             }
         }
-        return (total_tank<0)?-1:start;
+        return ((curr_pet + prev_pet) >= 0)?start: -1;
     }
 }
