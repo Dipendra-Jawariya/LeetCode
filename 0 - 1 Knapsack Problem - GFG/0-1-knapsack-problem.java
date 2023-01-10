@@ -84,17 +84,17 @@ class Solution
         }
         
         for(int ind=1;ind<n;ind++){
-            int curr[] = new int[W+1];
-            Arrays.fill(curr,0);
-            for(int cap = 0;cap<=W;cap++){
+            // int curr[] = new int[W+1];
+            // Arrays.fill(curr,0);
+            for(int cap = W;cap>=0;cap--){
                 int notTake = prev[cap];
                 int take = Integer.MIN_VALUE;
                 if(wt[ind] <= cap){
                     take = val[ind] + prev[cap - wt[ind]];
                 }
-                curr[cap] = Math.max(take,notTake);
+                prev[cap] = Math.max(take,notTake);
             }
-            prev = curr;
+            // prev = curr;
         }
         return prev[W];
     } 
