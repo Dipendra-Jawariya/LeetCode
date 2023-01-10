@@ -51,27 +51,52 @@ class Solution
     //Function to return max value that can be put in knapsack of capacity W.
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
-        //Tabulation
-        int dp[][] = new int[n][W+1];
-        for(int row[] : dp){
-            Arrays.fill(row,0);
-        }
-        //Base Case
-        for(int i = wt[0]; i <= W;i++){
-            dp[0][i] = val[0];
+        // //Tabulation
+        // int dp[][] = new int[n][W+1];
+        // for(int row[] : dp){
+        //     Arrays.fill(row,0);
+        // }
+        // //Base Case
+        // for(int i = wt[0]; i <= W;i++){
+        //     dp[0][i] = val[0];
+        // }
+        
+        // for(int ind =1;ind < n;ind++){
+        //     for(int cap = 0;cap <= W;cap++){
+        //         int notTake = dp[ind-1][cap];
+        //         int take = Integer.MIN_VALUE;
+        //         if(wt[ind] <= cap){
+        //             take = val[ind] + dp[ind-1][cap - wt[ind]];
+        //         }
+        //         dp[ind][cap] = Math.max(take,notTake);
+        //     }
+        // }
+        // return dp[n-1][W];
+        
+        
+        
+        //Space Optimization
+        int prev[] = new int[W+1];
+        Arrays.fill(prev,0);
+        
+        for(int i = wt[0];i<=W;i++){
+            prev[i] = val[0];
         }
         
-        for(int ind =1;ind < n;ind++){
-            for(int cap = 0;cap <= W;cap++){
-                int notTake = dp[ind-1][cap];
+        for(int ind=1;ind<n;ind++){
+            int curr[] = new int[W+1];
+            Arrays.fill(curr,0);
+            for(int cap = 0;cap<=W;cap++){
+                int notTake = prev[cap];
                 int take = Integer.MIN_VALUE;
                 if(wt[ind] <= cap){
-                    take = val[ind] + dp[ind-1][cap - wt[ind]];
+                    take = val[ind] + prev[cap - wt[ind]];
                 }
-                dp[ind][cap] = Math.max(take,notTake);
+                curr[cap] = Math.max(take,notTake);
             }
+            prev = curr;
         }
-        return dp[n-1][W];
+        return prev[W];
     } 
 }
 
