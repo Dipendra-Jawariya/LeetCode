@@ -49,25 +49,29 @@ class gfg
 class Solution 
 { 
     //Function to return max value that can be put in knapsack of capacity W.
-    static int f(int ind,int wt[],int val[],int W,int dp[][]){
-        if(ind ==0){
-            if(wt[0] <= W) return val[0];
-            else return 0;
-        }
-        if(dp[ind][W] != -1) return dp[ind][W];
-        int notTake = 0 + f(ind-1,wt,val,W,dp);
-        int take = Integer.MIN_VALUE;
-        if(wt[ind] <= W) {
-            take = val[ind] + f(ind-1,wt,val,W-wt[ind],dp);
-        }
-        return dp[ind][W] = Math.max(take,notTake);
-    }
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
+        //Tabulation
         int dp[][] = new int[n][W+1];
-        for(int row[] : dp)
-            Arrays.fill(row,-1);
-        return f(n-1,wt,val,W,dp);
+        for(int row[] : dp){
+            Arrays.fill(row,0);
+        }
+        //Base Case
+        for(int i = wt[0]; i <= W;i++){
+            dp[0][i] = val[0];
+        }
+        
+        for(int ind =1;ind < n;ind++){
+            for(int cap = 0;cap <= W;cap++){
+                int notTake = dp[ind-1][cap];
+                int take = Integer.MIN_VALUE;
+                if(wt[ind] <= cap){
+                    take = val[ind] + dp[ind-1][cap - wt[ind]];
+                }
+                dp[ind][cap] = Math.max(take,notTake);
+            }
+        }
+        return dp[n-1][W];
     } 
 }
 
