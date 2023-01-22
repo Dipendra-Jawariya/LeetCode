@@ -1,29 +1,28 @@
 class Solution {
-    private void func(int ind,String s,List<List<String>> res, List<String> path){
+    private void f(int ind,String s,List<List<String>> ans,List<String> ds){
         if(ind == s.length()){
-            res.add(new ArrayList<>(path));
-            return;
+            ans.add(new ArrayList<>(ds));
         }
-        for(int i =ind;i<s.length();i++){
+        for(int i = ind;i < s.length(); i++){
             if(isPalindrome(s,ind,i)){
-                path.add(s.substring(ind,i+1));
-                func(i+1,s,res,path);
-                path.remove(path.size()-1);
+                ds.add(s.substring(ind,i+1));
+                f(i+1,s,ans,ds);
+                ds.remove(ds.size()-1);
             }
         }
     }
-    private boolean isPalindrome(String s,int start,int end ){
-        while(start<=end){
-            if(s.charAt(start++)!=s.charAt(end--)){
+    private boolean isPalindrome(String s,int start,int end){
+        while(start <= end){
+            if(s.charAt(start++) != s.charAt(end--)){
                 return false;
             }
         }
         return true;
     }
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        List<String> path = new ArrayList<>();
-        func(0,s,res,path);
-        return res;
+        List<List<String>> ans = new ArrayList<>();
+        List<String> ds = new ArrayList<>();
+        f(0,s,ans,ds);
+        return ans;
     }
 }
