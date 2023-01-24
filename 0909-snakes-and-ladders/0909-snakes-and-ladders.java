@@ -26,7 +26,7 @@ class Solution {
         while(!q.isEmpty()){
             int size = q.size();
             
-            for(int i = 0;i < size; i++){
+            // for(int i = 0;i < size; i++){
                 int val = q.peek().val;
                 int steps = q.peek().steps;
                 q.remove();
@@ -47,7 +47,7 @@ class Solution {
                         q.add(new Pair(board[r][c],steps+1));
                     }
                 }
-            }
+            // }
         }
         return -1;
     }
