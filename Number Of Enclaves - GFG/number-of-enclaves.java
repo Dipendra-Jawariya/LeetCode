@@ -35,54 +35,68 @@ class GFG {
 
 
 // User function Template for Java
-
-class Solution {
-    void dfs(int row,int col,int vis[][],int grid[][],int delRow[],int delCol[]){
-        vis[row][col] = 1;
-        int n = grid.length;
-        int m = grid[0].length;
-        
-        for(int i = 0; i < 4; i++){
-            int nrow =  row + delRow[i];
-            int ncol = col + delCol[i];
-            
-            if(nrow >=0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] == 0 &&
-            grid[nrow][ncol] == 1){
-                dfs(nrow,ncol,vis,grid,delRow,delCol);
-            }
-        }
+class Pair{
+    int row;
+    int col;
+    Pair(int row,int col){
+        this.row = row;
+        this.col = col;
     }
+}
+class Solution {
+
     int numberOfEnclaves(int[][] grid) {
+
+        //bfs
         int n = grid.length;
         int m = grid[0].length;
         int vis[][] = new int[n][m];
-        for(int row[] : vis) Arrays.fill(row,0);
-        int delRow[] = {-1,0,1,0};
-        int delCol[] = {0,1,0,-1};
-        //column
-        for(int j = 0; j < m; j++){
-            // first column
-            if(vis[0][j] == 0 && grid[0][j] == 1){
-                dfs(0,j,vis,grid,delRow,delCol);
+        
+        // int delRow[] = {-1,0,1,-1};
+        // int delCol[] = {0,1,0,-1};
+        Queue<Pair> q = new LinkedList<Pair>();
+        for(int i = 0; i < n; i++){
+            if(vis[i][0] == 0 && grid[i][0] == 1){
+                vis[i][0] = 1;
+                q.add(new Pair(i,0));
             }
-            //last column
-            if(vis[n-1][j] == 0 && grid[n-1][j] == 1){
-                dfs(n-1,j,vis,grid,delRow,delCol);
+            if(vis[i][m-1] == 0 && grid[i][m-1] == 1){
+                vis[i][m-1] = 1;
+                q.add(new Pair(i,m-1));
             }
         }
-        //row
-        for(int i = 0; i < n;i++){
-            //first row 
-            if(vis[i][0] == 0 && grid[i][0] == 1){
-                dfs(i,0,vis,grid,delRow,delCol);
-            }
-            //last Row
-            if(vis[i][m-1] == 0 && grid[i][m-1] == 1){
-                dfs(i,m-1,vis,grid,delRow,delCol);
+        for(int j = 0; j < m; j++){
+                if(vis[0][j] == 0 && grid[0][j] == 1){
+                    vis[0][j] = 1;
+                    q.add(new Pair(0,j));
+                }
+                if(vis[n-1][j] == 0 && grid[n-1][j] == 1){
+                    vis[n-1][j] = 1;
+                    q.add(new Pair(n-1,j));
+                }
+        }
+        
+        int delRow[] = {-1,0,1,0};
+        int delCol[] = {0,1,0,-1};
+        //traverse the connected component
+        while(!q.isEmpty()){
+            int row = q.peek().row;
+            int col = q.peek().col;
+            q.remove();
+            for(int i = 0;i <4;i++){
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                //validity check
+                if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] == 0 &&
+                grid[nrow][ncol] == 1){
+                    q.add(new Pair(nrow,ncol));
+                    vis[nrow][ncol] = 1;
+                }
             }
         }
         int cnt = 0;
-        for(int i = 0; i < n;i++){
+        //now compare and count the not visisted ones 
+        for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
                 if(vis[i][j] == 0 && grid[i][j] == 1){
                     cnt++;
