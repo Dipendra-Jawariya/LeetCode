@@ -34,12 +34,12 @@ class DriverClass {
 class Solution {
     private boolean dfs(int src, ArrayList<ArrayList<Integer>> adj, int vis[],
     int pathVis[]){
-        vis[src] = 1;
-        pathVis[src] = 1;
+        vis[src] = 2;
+        // pathVis[src] = 1;
         //traverse for adjacent nodes
         for(int it : adj.get(src)){
             //whem the node is not visited
-            if(vis[it] != 1){
+            if(vis[it] == 0){
                 // vis[it] = 1;
                 if(dfs(it,adj,vis,pathVis)== true){
                     return true;
@@ -47,11 +47,13 @@ class Solution {
             }
             // if the node has beem previously visisted 
             //and it has been visited on the same path
-            else if(pathVis[it] == 1){
+            else if(vis[it] == 2){
                 return true;
             }
         }
-        pathVis[src] = 0;
+        
+        vis[src] = 1;
+        // pathVis[src] = 0;
         return false;
     }
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
