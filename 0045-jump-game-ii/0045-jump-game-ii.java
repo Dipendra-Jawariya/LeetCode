@@ -12,7 +12,17 @@ class Solution {
     public int jump(int[] nums) {
         int n = nums.length;
         int dp[] = new int[n];
-        Arrays.fill(dp,-1);
-        return f(0 , nums,dp);
+        //base case  -- we are dealing with the base case over here
+        Arrays.fill(dp,0);
+        
+        for(int ind = n-2; ind >= 0; ind--) {
+            int mini = (int) 1e9;
+            for(int i = 1; i <= nums[ind] && i + ind < n; i++) {
+                int jump = 1 + dp[ind + i];
+                mini = Math.min(mini,jump);
+            }
+            dp[ind] = mini;
+        }
+        return dp[0];
     }
 }
