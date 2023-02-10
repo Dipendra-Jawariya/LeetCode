@@ -13,10 +13,6 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
         int vis[][] = new int[n][m];
-        // int dis[][] = new int[n][m];
-        // for(int row[] : vis){
-        //     Arrays.fill(row,0);
-        // }
         Queue<Pair> q = new LinkedList<>();
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
@@ -36,8 +32,7 @@ class Solution {
             int col = q.peek().col;
             int steps = q.peek().steps;
             q.remove();
-            // dis[row][col] = steps;
-            maxi = Math.max(steps,maxi);
+            if(steps > maxi) maxi = steps;
             for(int i = 0; i < 4; i++) {
                 int nrow = delRow[i] + row;
                 int ncol = delCol[i] + col;
@@ -47,12 +42,6 @@ class Solution {
                 }
             }
         }
-        // for(int i = 0; i < n; i++) {
-        //     for(int j = 0; j < m; j++) {
-        //         System.out.print(dis[i][j] +" ");
-        //     }
-        //     System.out.println();
-        // }
         return maxi == 0 ? -1 : maxi;
     }
 } 
