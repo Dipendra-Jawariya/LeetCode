@@ -42,6 +42,7 @@ class Solution {
                 }
             }
         }
-        return maxi == 0 ? -1 : maxi;
+        if(maxi == 0) return -1;
+        return maxi;
     }
 } 
