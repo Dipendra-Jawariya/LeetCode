@@ -108,13 +108,29 @@ class FastIO
 
 class Solution {
     static long solve(int n, int k, ArrayList<Long> arr) {
-        for(int i = k; i < n; i++){
-            long sum = 0;
-            for(int j = i - k; j < i; j++) {
-                sum += arr.get(j);
-            }
-            arr.add(sum);
+        // for(int i = k; i < n; i++){
+        //     long sum = 0;
+        //     for(int j = i - k; j < i; j++) {
+        //         sum += arr.get(j);
+        //     }
+        //     arr.add(sum);
+        // }
+        // return arr.get(n-1);
+        
+        long sum = 0;
+        List<Long> al = new ArrayList<>();
+        for(long x : arr) {
+            sum += x;
+            al.add(x);
         }
-        return arr.get(n-1);
+        
+        int start = 0;
+        while(al.size() < n) {
+            al.add(sum);
+            sum += sum;
+            sum -= al.get(start);
+            start++;
+        }
+        return al.get(n-1);
     }
 }
