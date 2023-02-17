@@ -78,15 +78,15 @@ class Solution {
                 int nrow = row + delRow[i];
                 int ncol = col + delCol[i];
                 
-                
+                if(row == destination[0] && col == destination[1]) {
+                        return dist;
+                }
                 
                 if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m  && 
                 grid[nrow][ncol] == 1 && dist + 1 < dis[nrow][ncol]) {
                     
                     dis[nrow][ncol] = 1 + dist;
-                    if(nrow == destination[0] && ncol == destination[1]) {
-                        return dist + 1;
-                    }
+                    
                     q.add(new Pair(dist + 1, nrow,ncol));
                     
                 }
