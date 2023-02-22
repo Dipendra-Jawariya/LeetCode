@@ -16,10 +16,13 @@ class Solution {
         dist[start]  =0;
         q.push({start,0});
         int mod = 1e5;
+        //TIME COMPLEXITY
+        // O(1e5 * N)
         while(!q.empty()) {
             int node = q.front().first;
             int steps = q.front().second;
             q.pop();
+            if(node == end) return steps;
             for(auto it : arr) {
                 int num = (it * node) % mod;
                 if(steps + 1 < dist[num]) {
