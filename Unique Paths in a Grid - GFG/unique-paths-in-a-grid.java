@@ -44,22 +44,24 @@ class Solution {
         return dp[i][j] = (down + right) % mod;
     }
     static int uniquePaths(int n, int m, int[][] grid) {
-        int dp[][] = new int[n][m];
-        for(int it[]: dp) Arrays.fill(it,0);
+        // int dp[][] = new int[n][m];
+        // for(int it[]: dp) Arrays.fill(it,0);
+        int prev[] = new int[m];
+        int cur[] = new int[m];
         // dp[0][0] = 1;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j <m; j++) {
-                if(grid[i][j] == 0) dp[i][j] =0;
+                if(grid[i][j] == 0) cur[j] =0;
                 else if(i == 0 && j == 0) {
-                    dp[0][0] = 1;
+                    cur[j] = 1;
                 }else{
                     int up = 0,left = 0;
-                    if(i > 0) up = dp[i-1][j] % mod;
-                    if(j > 0 ) left = dp[i][j-1] % mod;
-                    dp[i][j] = (up +left) % mod;
+                    if(i > 0) up = prev[j] % mod;
+                    if(j > 0 ) left = cur[j-1] % mod;
+                    cur[j] = (up +left) % mod;
                 }
-            }
+            } prev = cur;
         }
-        return dp[n-1][m-1] % mod;
+        return prev[m-1] % mod;
     }
 };
