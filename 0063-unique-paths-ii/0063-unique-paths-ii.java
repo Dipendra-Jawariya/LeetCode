@@ -21,23 +21,27 @@ class Solution {
         
 //         Tabulation
         dp[0][0] = 0;
+        int prev[] = new int[m];
+        int cur[] = new int[m];
+        
         for(int i =0;i<n;i++){
             for(int j =0;j<m;j++){
-                if(obstacleGrid[i][j] == 1) dp[i][j] =0;
-                else if(i == 0 && j == 0) dp[i][j] = 1;
+                if(obstacleGrid[i][j] == 1) cur[j] =0;
+                else if(i == 0 && j == 0) cur[j] = 1;
                 else{
                      int up = 0;
                      int left = 0;
                      if(i>0){
-                        up = dp[i-1][j];
+                        up = prev[j];
                      }
                         if(j>0){
-                        left = dp[i][j-1];
+                        left = cur[j-1];
                     }
-                    dp[i][j] =  up + left;
+                    cur[j] =  up + left;
                 }
             }
+            prev = cur;
         }
-        return dp[n-1][m-1];
+        return prev[m-1];
     }
 }
