@@ -39,16 +39,10 @@ class Compute {
     
     public static int missingNumber(int A[], int N)
     {
-        int hash[] = new int[N+1];
-        Arrays.fill(hash,0);
-        for(int i = 0; i < N; i++) {
-            hash[A[i]] = 1;
+        int sum =N * ( N + 1 ) / 2;
+        for(int i = 0 ; i < N; i++) {
+            sum -= A[i]; 
         }
-        for(int i = 1; i <= N; i++) {
-            if(hash[i] == 0) {
-                return i;
-            }
-        }
-        return -1;
+        return sum;
     }
 }
