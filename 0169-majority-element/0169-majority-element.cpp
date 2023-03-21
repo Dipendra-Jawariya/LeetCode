@@ -16,15 +16,15 @@ public:
                 cnt--;
             }
         }
-        int cnt1 = 0;
-        //verify if there is any element which is greater n/2
-        for(int i = 0; i < nums.size(); i++) {
-            if(nums[i] == el) {
-                cnt1++;
-            }
-        }
+        // int cnt1 = 0;
+        // //verify if there is any element which is greater n/2
+        // for(int i = 0; i < nums.size(); i++) {
+        //     if(nums[i] == el) {
+        //         cnt1++;
+        //     }
+        // }
         
-        if(cnt1 > n/2) return el;
-        return -1;
+        // if(cnt1 > n/2) return el;
+        return el;
     }
 };
