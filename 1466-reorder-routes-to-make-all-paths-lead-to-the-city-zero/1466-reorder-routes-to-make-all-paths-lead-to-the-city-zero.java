@@ -7,15 +7,13 @@ class Pair {
     }
 }
 class Solution {
-    private int dfs(int node,int parent,ArrayList<ArrayList<Pair>> adj,int[] vis) {
+    private int dfs(int node,int parent,ArrayList<ArrayList<Pair>> adj) {
         int cnt = 0;
-        vis[node] = 1;
+        // vis[node] = 1;
         for(Pair list : adj.get(node)) {
-            if(vis[list.node] == -1) {
                 System.out.println("Node:" + node +" "+ list.node + " " + list.edge);
-                // if(list.node == parent) continue;
-                cnt += list.edge + dfs(list.node,node,adj,vis);    
-            }
+                if(list.node == parent) continue;
+                cnt += list.edge + dfs(list.node,node,adj);
         }
         return cnt;
     }
@@ -31,8 +29,8 @@ class Solution {
             adj.get(u).add(new Pair(v,1)); // original edge
             adj.get(v).add(new Pair(u,0)); // artificial edge
         }
-        int vis[] = new int[n];
-        Arrays.fill(vis,-1);
-        return dfs(0,-1,adj,vis);
+        // int vis[] = new int[n];
+        // Arrays.fill(vis,-1);
+        return dfs(0,-1,adj);
     }
 }
