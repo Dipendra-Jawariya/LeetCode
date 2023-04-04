@@ -1,37 +1,38 @@
 class Solution {
-    private int ways(int i,int j,int dp[][]){
-        if(i ==0 && j ==0) return 1;
-        if(i<0 || j < 0) return 0;
-        if(dp[i][j] != -1) return dp[i][j]; 
-        int up = ways(i-1,j,dp);
-        int left = ways(i,j-1,dp);
-        return dp[i][j] = up + left;
-    }
+    // private int f(int n ,int m , int dp[][]) {
+    //     if(n == 0 && m == 0 ) {
+    //         return 1;
+    //     }
+    //     if(n < 0 || m < 0) return 0;
+    //     if(dp[n][m] != -1) return dp[n][m];
+    //     int up = f(n-1,m,dp);
+    //     int left = f(n,m-1,dp);
+    //     return dp[n][m] = up + left;
+    // }
     public int uniquePaths(int m, int n) {
-        int dp[][] = new int[m][n];
-        for(int row[]:dp){
-            Arrays.fill(row,-1);
-        }
-       // return ways(m-1,n-1,dp);
         
-        // Tabulation
-        for(int i =0;i<m;i++){
-            for(int j =0;j<n;j++){
-                if(i==0 && j==0){
-                    dp[i][j] = 1;
+//         SPACE OPTIMIZATION
+        int prev[] = new int[m];
+        int curr[] = new int[m];
+        
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(i == 0 && j == 0) {
+                    curr[j] = 1;
                     continue;
                 }
                 int up = 0;
-                int left =0;
-                if(i>0){
-                    up = dp[i-1][j];
+                int left = 0;
+                if(i > 0) {
+                    up = prev[j];
+                } 
+                if(j > 0) {
+                    left = curr[j-1];
                 }
-                if(j>0){
-                    left = dp[i][j-1];
-                }
-                dp[i][j] = up + left;
+                curr[j] = up + left;
             }
+            prev = curr;
         }
-        return dp[m-1][n-1];
+        return prev[m-1];
     }
 }
