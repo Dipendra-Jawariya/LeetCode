@@ -12,7 +12,18 @@ class Solution {
         int n = triangle.size();
         // int m = triangle[0].size();
         int dp[][] = new int[n][201];
-        for(int it[] : dp) Arrays.fill(it,-1);
-        return f(0,0,n,triangle,dp);
+        for(int it[] : dp) Arrays.fill(it,0);
+        
+        for(int j = 0; j < n; j++ ) {
+            dp[n-1][j] = triangle.get(n-1).get(j);
+        }
+        for(int i = n-2; i >= 0; i--) {
+            for(int j = i; j >= 0; j--) {
+                int down = triangle.get(i).get(j) + dp[i+1][j];
+                int diagonal = triangle.get(i).get(j) + dp[i+1][j+1];
+                dp[i][j] = Math.min(down , diagonal);
+            }
+        }
+        return dp[0][0];
     }
 }
