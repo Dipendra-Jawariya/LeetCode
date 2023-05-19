@@ -35,7 +35,7 @@ class Solution {
     public boolean isBipartite(int[][] graph) {
         int n = graph.length;
         int m = graph[0].length;
-        
+         
         int color[] = new int[n];
         Arrays.fill(color,-1);
         
