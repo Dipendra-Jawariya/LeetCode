@@ -10,17 +10,20 @@ private:
 public:
     int minimumTotal(vector<vector<int>>& tri) {
         int n = tri.size();
-        vector<vector<int>> dp(n,vector<int>(n,0));
+        // vector<vector<int>> dp(n,vector<int>(n,0));
+        vector<int> front(n,0);
+        vector<int> curr(n,0);
         for(int j = 0 ; j < n; j++) {
-            dp[n-1][j] = tri[n-1][j];
+            front[j] = tri[n-1][j];
         }
         for(int i = n-2; i >= 0; i--) {
             for(int j = i; j >= 0; j--) {
-                int down = tri[i][j] + dp[i+1][j];
-                int diag = tri[i][j] + dp[i+1][j+1];
-                dp[i][j] = min(down,diag);
+                int down = tri[i][j] + front[j];
+                int diag = tri[i][j] + front[j+1];
+                curr[j] = min(down,diag);
             }
+            front = curr;
         }
-        return dp[0][0];
+        return front[0];
     }
 };
