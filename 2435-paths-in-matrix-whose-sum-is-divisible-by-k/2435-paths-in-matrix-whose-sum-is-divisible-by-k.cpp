@@ -21,8 +21,22 @@ public:
     int numberOfPaths(vector<vector<int>>& grid, int k) {
         int n = grid.size();
         int m = grid[0].size();
-        vector<vector<vector<int>>> dp(n,vector(m,vector<int>(k+1,-1)));
-        // vector<vector<vector<int> > > dp(n, vector<vector<int> >(m, vector<int>(k+1,-1)));
-        return f(n-1,m-1,0,k,grid,dp) % mod;
+        vector<vector<vector<int>>> dp(n,vector(m,vector<int>(k,0)));
+        dp[0][0][grid[0][0] % k] = 1;
+        for(int row = 0; row < n; row++) {
+            for(int col = 0; col < m; col++) {
+                for(int sum = 0; sum < k; sum++) {
+                    // int up = 0;
+                    // if(row > 0)  dp[row-1][col][(sum + grid[row][col]) % k] % mod;
+                    // int left = 0;
+                    // if(col > 0)  dp[row][col-1][(sum + grid[row][col]) % k] % mod;
+                    // dp[row][col][sum] = (up + left) % mod;
+                    int K = (sum + grid[row][col]) % k;
+                    if(row) dp[row][col][K] += dp[row-1][col][sum] % mod;
+                    if(col) dp[row][col][K] += dp[row][col-1][sum] % mod;
+                }
+            }
+        }
+        return dp[n-1][m-1][0] % mod;
     }
 };
