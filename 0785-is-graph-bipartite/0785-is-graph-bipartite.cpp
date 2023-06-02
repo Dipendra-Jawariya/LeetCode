@@ -19,6 +19,20 @@ private:
         }
         return true;
     }
+private:
+    bool dfs_check(int node,int col,vector<int> &color,vector<vector<int>> &graph) {
+        color[node] = col;
+        
+        for(auto it : graph[node]) {
+            if(color[it] == -1){
+                if(!dfs_check(it,1 - col,color,graph)) return false;
+            }
+            else if(col == color[it]) {
+                    return false;
+            }
+        }
+        return true;
+    }
 public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
@@ -26,7 +40,10 @@ public:
         
         for(int i  = 0; i < n; i++) {
             if(color[i] == -1) {
-                if(bfs_check(i,color,graph) == false) {
+                // if(bfs_check(i,color,graph) == false) {
+                //     return false;
+                // }
+                if(dfs_check(i,0,color,graph) == false) {
                     return false;
                 }
             }
