@@ -1,6 +1,6 @@
 class Solution {
 private:
-    int first(vector<int> & nums,int target,int n) {
+    int firstOccurence(vector<int> & nums,int target,int n) {
         int low = 0,high = n - 1;
         int ans = -1;
         while(low <= high) {
@@ -18,7 +18,7 @@ private:
     }
     
 private:
-    int last(vector<int> &nums,int target,int n ) {
+    int lastOccurence(vector<int> &nums,int target,int n ) {
         int low = 0, high = n - 1;
         int ans = -1;
         while(low <= high) {
@@ -38,8 +38,9 @@ public:
     vector<int> searchRange(vector<int>& nums, int target) {
         // Plain Binary Search
         int n = nums.size();
-        int frst = first(nums,target,n);
-        int lst = last(nums,target,n);
+        int frst = firstOccurence(nums,target,n);
+        if(frst == -1 ) return {-1,-1};
+        int lst = lastOccurence(nums,target,n);
         return {frst,lst};
     }
 };
