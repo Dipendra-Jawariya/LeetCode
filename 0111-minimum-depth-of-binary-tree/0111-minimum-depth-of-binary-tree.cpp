@@ -22,9 +22,35 @@ private:
         
         return 1 + min(dfs(root->left),dfs(root->right));
     }
-    
+private:
+    int bfs(TreeNode *root) {
+        if(root == NULL) return 0;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        int depth = 1;
+        
+        while(!q.empty()) {
+            int size = q.size();
+            
+            while(size--) {
+                TreeNode *node = q.front();
+                q.pop();
+                
+                if(!node) continue;
+                
+                if(!node->left & !node->right) {
+                    return depth;
+                }
+                q.push({node->left});
+                q.push({node->right});
+            }
+            depth++;
+        }
+        return -1;
+    }
 public:
     int minDepth(TreeNode* root) {
-        return dfs(root);
+        return bfs(root);
     }
 };
