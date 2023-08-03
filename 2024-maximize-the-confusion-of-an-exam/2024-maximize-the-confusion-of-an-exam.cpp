@@ -1,44 +1,25 @@
 class Solution {
 private:
-    bool isPossible(string s,int len, int k) {
-        int f = 0, t = 0;
-        for(int i = 0; i < len; i++) {
-            t += (s[i] == 'T');
-            f += ( s[i] == 'F');
-        }
-        
-        if(t <= k || f <= k) return true;
-        int l = 0, r = len - 1;
-        while(r != s.size() - 1) {
-            t -= (s[l] == 'T');
-            f -= (s[l] == 'F');
-            l++;
-            
-            r++;
-            t += (s[r] == 'T');
-            f += (s[r] == 'F');
-            
-            if(t <= k || f <= k) {
-                return true;
+    int largestWindow(string s,int k, char ch) {
+        int n = s.size();
+        int ans = -1e9;
+        int cnt = 0;
+        int left = 0 ,right = 0;
+        while(right < n) {
+            if(s[right] == ch) {
+                cnt++;
             }
+            while(cnt > k) {
+                if(s[left] == ch) cnt--;
+                left++;
+            }
+            ans = max(ans,right - left + 1);
+            right++;
         }
-        return false;
+        return ans;
     }
 public:
     int maxConsecutiveAnswers(string answerKey, int k) {
-        int low = 1;
-        int high = answerKey.size();
-        
-        int ans = low;
-        while(low <= high) {
-            int mid = (low + high) >> 1;
-            if(isPossible(answerKey,mid,k) == true) {
-                ans = mid;
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return ans;
+        return  max(largestWindow(answerKey,k, 'F'), largestWindow(answerKey,k,'T'));
     }
 };
