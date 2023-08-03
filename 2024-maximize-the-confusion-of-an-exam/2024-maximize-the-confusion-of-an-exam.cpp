@@ -1,16 +1,20 @@
 class Solution {
 private:
-    int largestWindow(string s,int k, char ch) {
+    int largestWindow(string s,int k) {
         int n = s.size();
         int ans = -1e9;
-        int cnt = 0;
+        int cntF = 0,cntT = 0;
         int left = 0 ,right = 0;
         while(right < n) {
-            if(s[right] == ch) {
-                cnt++;
+            if(s[right] == 'F') {
+                cntF++;
             }
-            while(cnt > k) {
-                if(s[left] == ch) cnt--;
+            if(s[right] == 'T') {
+                cntT++;
+            }
+            while(min(cntF,cntT) > k) {
+                if(s[left] == 'F') cntF--;
+                if(s[left] == 'T') cntT--;
                 left++;
             }
             ans = max(ans,right - left + 1);
@@ -20,6 +24,6 @@ private:
     }
 public:
     int maxConsecutiveAnswers(string answerKey, int k) {
-        return  max(largestWindow(answerKey,k, 'F'), largestWindow(answerKey,k,'T'));
+        return  largestWindow(answerKey,k);
     }
 };
