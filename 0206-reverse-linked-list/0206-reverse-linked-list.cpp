@@ -9,6 +9,18 @@
  * };
  */
 class Solution {
+private:
+    ListNode* recursionReverse(ListNode* head, ListNode* prev) {
+        if(head == NULL) {
+            return prev;
+        }
+        while(head != NULL) {
+            ListNode* next = head -> next;
+            head -> next = prev;
+            recursionReverse(next , head);
+        }
+        return head;
+    }
 public:
     ListNode* reverseList(ListNode* head) {
         
