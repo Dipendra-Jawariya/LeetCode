@@ -4,7 +4,7 @@ public:
         int n = groupSizes.size();
         vector<vector<int>> ans;
         int maxi = *max_element(groupSizes.begin(),groupSizes.end());
-        for(int i = 1; i <= groupSizes.size(); i++) {
+        for(int i = 1; i <= maxi; i++) {
             
             vector<int> subArr;
             for(int j = 0; j < n; j++) {
