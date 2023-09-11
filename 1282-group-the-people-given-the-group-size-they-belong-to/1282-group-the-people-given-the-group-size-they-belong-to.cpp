@@ -3,7 +3,7 @@ public:
     vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
         int n = groupSizes.size();
         vector<vector<int>> ans;
-        
+        int maxi = *max_element(groupSizes.begin(),groupSizes.end());
         for(int i = 1; i <= groupSizes.size(); i++) {
             
             vector<int> subArr;
