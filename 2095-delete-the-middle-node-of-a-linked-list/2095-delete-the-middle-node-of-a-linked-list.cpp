@@ -9,30 +9,36 @@
  * };
  */
 class Solution {
-int findSize(ListNode* head) {
-    int cnt = 0;
-    while(head != NULL) {
-        cnt++;
-        head = head -> next;
-    }
-    return cnt;
-}
 public:
     ListNode* deleteMiddle(ListNode* head) {
         if(head -> next == NULL) return NULL;
-        // if(head == NULL || head -> next == NULL) return NULL;
-        int size = findSize(head);
-        int middle = size / 2;
-        // if(size % 2 == 0) {
-        //     middle = (size / 2) +1;
-        // } else {
-        //     middle = size / 2;
-        // }
-        ListNode* curr = head;
-        for(int i = 0; i < middle - 1; i++) {
-            curr = curr -> next;
+        
+        ListNode* slow = head;
+        // ListNode* fast = head -> next;
+        ListNode* fast = head;
+        ListNode* prev = NULL;
+        
+        while(fast && fast -> next) {
+            prev = slow;
+            slow = slow -> next;   
+            fast = fast -> next -> next;
         }
-        curr -> next = curr -> next -> next;
+        
+        ListNode* next = slow -> next;
+        prev -> next = slow -> next;
+//         if(fast == NULL) {
+//             ListNode* next = slow -> next;
+//             prev -> next = next;
+//             delete slow;
+//             return head;
+//         }
+        
+//         if(fast -> next == NULL) {
+//             ListNode* next = slow -> next;
+//             slow -> next = next -> next;
+//             delete next;
+//             return head;
+//         }
         return head;
     }
 };
