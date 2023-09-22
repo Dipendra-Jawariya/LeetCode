@@ -27,11 +27,31 @@ private:
             }
         }
     }
+
+private:
+    void dfs(int row,int col,int initialColor,int color,vector<vector<int>>& image,
+             vector<vector<int>>& ans) {
+        ans[row][col] = color;
+        int n = image.size();
+        int m = image[0].size();
+        
+        int delRow[] = {-1,0,1,0};
+        int delCol[] = {0,1,0,-1};
+        
+        for(int i = 0; i < 4; i++) {
+            int nrow = row + delRow[i];
+            int ncol = col + delCol[i];
+            if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && 
+                   image[nrow][ncol] == initialColor && ans[nrow][ncol] != color) {
+                    dfs(nrow,ncol,initialColor,color,image,ans);
+            }
+        }
+    }
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         int initialColor = image[sr][sc];
         vector<vector<int>> ans = image;
-        bfs(sr,sc,initialColor,color,image,ans);
+        dfs(sr,sc,initialColor,color,image,ans);
         return ans;
     }
 };
