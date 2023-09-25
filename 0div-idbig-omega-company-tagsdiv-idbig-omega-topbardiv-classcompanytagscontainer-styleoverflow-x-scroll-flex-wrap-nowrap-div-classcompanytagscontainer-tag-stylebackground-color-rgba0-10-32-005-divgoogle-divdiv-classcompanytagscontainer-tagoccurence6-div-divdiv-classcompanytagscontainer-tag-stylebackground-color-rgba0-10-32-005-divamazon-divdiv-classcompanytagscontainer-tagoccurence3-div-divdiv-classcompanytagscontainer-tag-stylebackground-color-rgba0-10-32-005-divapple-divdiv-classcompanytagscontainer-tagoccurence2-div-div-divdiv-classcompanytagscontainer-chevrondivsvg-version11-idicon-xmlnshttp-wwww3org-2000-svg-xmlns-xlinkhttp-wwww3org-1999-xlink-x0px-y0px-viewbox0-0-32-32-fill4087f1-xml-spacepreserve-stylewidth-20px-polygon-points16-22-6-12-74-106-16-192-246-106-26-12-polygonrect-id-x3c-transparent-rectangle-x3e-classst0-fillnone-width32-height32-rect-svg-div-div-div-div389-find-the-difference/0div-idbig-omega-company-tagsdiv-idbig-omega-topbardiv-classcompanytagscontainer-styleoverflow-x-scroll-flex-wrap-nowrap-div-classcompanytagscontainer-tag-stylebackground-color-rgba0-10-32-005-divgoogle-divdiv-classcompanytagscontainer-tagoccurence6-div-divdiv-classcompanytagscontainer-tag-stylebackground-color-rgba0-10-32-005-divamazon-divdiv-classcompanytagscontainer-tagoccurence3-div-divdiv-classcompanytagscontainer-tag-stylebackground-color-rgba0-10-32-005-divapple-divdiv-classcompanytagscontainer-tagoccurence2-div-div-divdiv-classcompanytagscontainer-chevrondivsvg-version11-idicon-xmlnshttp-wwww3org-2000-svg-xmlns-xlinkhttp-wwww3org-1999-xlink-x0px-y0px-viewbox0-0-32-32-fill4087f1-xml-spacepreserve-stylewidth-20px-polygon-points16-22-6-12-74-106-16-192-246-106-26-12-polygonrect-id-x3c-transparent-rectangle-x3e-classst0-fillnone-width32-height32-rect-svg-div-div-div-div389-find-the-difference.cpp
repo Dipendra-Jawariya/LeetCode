@@ -1,19 +1,14 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        map<char,int> mpp;
-        for(int i = 0; i < t.size(); i++) {
-            mpp[t[i]]++;
-            if(i != t.size() - 1) {
-                mpp[s[i]]++;
-            }
+        sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
+        int i = 0;
+        int n = t.size();
+        for(i = 0; i < n; i++) {
+            if(i == s.size()) break;
+            if(s[i] != t[i])  return t[i];
         }
-        for(auto it : mpp) {
-            cout<<it.first<<" " << it.second<<endl;
-            if(it.second % 2 == 1) {
-                return it.first;
-            }
-        }
-        return 'a';
+        return t[i];
     }
 };
