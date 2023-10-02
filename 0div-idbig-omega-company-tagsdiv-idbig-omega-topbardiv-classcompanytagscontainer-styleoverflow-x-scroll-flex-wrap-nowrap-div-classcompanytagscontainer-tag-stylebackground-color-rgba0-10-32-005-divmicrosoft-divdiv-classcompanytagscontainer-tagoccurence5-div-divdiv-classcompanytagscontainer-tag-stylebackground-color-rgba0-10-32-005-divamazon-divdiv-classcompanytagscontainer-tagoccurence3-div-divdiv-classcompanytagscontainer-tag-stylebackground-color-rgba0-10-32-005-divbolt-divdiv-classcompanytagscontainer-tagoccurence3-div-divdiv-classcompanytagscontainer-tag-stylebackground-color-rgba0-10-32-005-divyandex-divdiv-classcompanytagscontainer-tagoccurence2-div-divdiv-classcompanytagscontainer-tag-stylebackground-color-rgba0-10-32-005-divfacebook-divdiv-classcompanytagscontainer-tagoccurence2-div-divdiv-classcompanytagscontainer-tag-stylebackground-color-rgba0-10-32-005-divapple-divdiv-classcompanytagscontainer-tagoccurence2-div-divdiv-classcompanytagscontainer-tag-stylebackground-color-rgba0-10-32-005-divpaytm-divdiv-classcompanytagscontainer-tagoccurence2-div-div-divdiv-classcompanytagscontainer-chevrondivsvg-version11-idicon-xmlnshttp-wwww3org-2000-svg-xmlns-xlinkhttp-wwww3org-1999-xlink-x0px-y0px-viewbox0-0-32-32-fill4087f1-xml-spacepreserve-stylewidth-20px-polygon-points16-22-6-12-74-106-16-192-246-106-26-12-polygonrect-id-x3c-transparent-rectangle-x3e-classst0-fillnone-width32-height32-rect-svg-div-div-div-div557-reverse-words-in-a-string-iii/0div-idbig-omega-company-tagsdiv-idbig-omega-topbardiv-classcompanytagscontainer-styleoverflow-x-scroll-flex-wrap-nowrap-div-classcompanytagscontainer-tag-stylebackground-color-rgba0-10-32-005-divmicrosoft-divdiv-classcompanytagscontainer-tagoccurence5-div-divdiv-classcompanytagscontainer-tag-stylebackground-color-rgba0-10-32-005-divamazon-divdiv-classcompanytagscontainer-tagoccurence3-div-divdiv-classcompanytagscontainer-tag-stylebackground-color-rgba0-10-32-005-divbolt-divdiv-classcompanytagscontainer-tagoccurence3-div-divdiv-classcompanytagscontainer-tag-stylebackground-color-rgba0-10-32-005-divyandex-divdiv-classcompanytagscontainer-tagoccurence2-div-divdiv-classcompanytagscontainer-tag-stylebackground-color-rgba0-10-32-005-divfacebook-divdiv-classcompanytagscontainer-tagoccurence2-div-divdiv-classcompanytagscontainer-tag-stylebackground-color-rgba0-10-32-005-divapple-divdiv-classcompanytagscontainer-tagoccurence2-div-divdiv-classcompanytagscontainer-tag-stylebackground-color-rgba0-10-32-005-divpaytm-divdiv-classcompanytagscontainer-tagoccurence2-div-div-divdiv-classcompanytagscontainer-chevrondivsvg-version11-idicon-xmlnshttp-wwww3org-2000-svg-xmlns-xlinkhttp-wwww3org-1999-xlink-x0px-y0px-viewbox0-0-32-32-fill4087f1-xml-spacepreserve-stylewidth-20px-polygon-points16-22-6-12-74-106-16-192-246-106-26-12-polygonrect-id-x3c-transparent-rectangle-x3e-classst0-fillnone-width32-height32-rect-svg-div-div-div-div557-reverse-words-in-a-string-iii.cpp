@@ -1,20 +1,18 @@
 class Solution {
 public:
     string reverseWords(string s) {
-         int lastSpaceIndex = -1;
-        int len = (int)s.size();
-        for (int strIndex = 0; strIndex <= len; strIndex++) {
-            if (strIndex == len || s[strIndex] == ' ') {
-                int startIndex = lastSpaceIndex + 1;
-                int endIndex = strIndex - 1;
-                while (startIndex < endIndex) {
-                    char temp = s[startIndex];
-                    s[startIndex] = s[endIndex];
-                    s[endIndex] = temp;
-                    startIndex++;
-                    endIndex--;
+        int n = s.size();
+        int lastSpace = -1;
+        for(int i = 0; i <= n; i++) {
+            if(i == n || s[i] == ' ') {
+                int startIndx = lastSpace + 1;
+                int endIndx = i - 1;
+                while(startIndx < endIndx) {
+                    char temp = s[startIndx];
+                    s[startIndx++] = s[endIndx];
+                    s[endIndx--] = temp;
                 }
-                lastSpaceIndex = strIndex;
+                lastSpace = i;
             }
         }
         return s;
