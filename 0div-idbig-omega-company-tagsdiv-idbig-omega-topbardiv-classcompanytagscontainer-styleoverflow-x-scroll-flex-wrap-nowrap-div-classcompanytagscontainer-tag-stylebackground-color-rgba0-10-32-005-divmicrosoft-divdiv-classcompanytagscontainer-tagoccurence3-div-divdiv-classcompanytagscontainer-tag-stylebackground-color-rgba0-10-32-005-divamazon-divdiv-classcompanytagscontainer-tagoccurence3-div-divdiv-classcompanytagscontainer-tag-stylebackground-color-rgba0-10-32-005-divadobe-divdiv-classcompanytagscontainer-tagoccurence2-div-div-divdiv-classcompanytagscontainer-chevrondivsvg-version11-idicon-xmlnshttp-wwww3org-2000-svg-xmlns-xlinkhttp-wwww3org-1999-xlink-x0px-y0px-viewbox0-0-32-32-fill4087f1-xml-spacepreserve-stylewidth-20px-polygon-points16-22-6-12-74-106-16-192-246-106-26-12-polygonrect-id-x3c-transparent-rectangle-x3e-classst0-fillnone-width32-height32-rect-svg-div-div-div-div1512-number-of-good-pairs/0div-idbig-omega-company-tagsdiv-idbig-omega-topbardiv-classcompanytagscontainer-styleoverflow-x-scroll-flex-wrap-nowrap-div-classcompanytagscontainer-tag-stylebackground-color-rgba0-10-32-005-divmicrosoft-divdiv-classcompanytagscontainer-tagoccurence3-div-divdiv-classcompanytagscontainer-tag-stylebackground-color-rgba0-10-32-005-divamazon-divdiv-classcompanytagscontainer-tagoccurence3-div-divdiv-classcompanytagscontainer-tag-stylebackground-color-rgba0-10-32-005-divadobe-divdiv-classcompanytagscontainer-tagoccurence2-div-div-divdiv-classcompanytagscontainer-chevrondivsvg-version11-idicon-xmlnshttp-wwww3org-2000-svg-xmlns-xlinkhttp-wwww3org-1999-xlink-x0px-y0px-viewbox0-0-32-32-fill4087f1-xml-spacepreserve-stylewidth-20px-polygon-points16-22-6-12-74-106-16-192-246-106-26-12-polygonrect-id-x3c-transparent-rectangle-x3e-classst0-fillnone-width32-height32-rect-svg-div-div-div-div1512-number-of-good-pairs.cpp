@@ -1,15 +1,17 @@
 class Solution {
 public:
     int numIdenticalPairs(vector<int>& nums) {
+        
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+        
         int n = nums.size();
-        int cnt = 0;
-        for(int i = 0; i < n; i++) {
-            for(int j = i + 1; j < n; j++) {
-                if(nums[i] == nums[j]) {
-                    cnt++;
-                }
-            }
+        int ans = 0;
+        unordered_map<int,int> mpp;
+        for(int num : nums) {
+            ans += mpp[num];
+            mpp[num]++;
         }
-        return cnt;
+        return ans;
     }
 };
