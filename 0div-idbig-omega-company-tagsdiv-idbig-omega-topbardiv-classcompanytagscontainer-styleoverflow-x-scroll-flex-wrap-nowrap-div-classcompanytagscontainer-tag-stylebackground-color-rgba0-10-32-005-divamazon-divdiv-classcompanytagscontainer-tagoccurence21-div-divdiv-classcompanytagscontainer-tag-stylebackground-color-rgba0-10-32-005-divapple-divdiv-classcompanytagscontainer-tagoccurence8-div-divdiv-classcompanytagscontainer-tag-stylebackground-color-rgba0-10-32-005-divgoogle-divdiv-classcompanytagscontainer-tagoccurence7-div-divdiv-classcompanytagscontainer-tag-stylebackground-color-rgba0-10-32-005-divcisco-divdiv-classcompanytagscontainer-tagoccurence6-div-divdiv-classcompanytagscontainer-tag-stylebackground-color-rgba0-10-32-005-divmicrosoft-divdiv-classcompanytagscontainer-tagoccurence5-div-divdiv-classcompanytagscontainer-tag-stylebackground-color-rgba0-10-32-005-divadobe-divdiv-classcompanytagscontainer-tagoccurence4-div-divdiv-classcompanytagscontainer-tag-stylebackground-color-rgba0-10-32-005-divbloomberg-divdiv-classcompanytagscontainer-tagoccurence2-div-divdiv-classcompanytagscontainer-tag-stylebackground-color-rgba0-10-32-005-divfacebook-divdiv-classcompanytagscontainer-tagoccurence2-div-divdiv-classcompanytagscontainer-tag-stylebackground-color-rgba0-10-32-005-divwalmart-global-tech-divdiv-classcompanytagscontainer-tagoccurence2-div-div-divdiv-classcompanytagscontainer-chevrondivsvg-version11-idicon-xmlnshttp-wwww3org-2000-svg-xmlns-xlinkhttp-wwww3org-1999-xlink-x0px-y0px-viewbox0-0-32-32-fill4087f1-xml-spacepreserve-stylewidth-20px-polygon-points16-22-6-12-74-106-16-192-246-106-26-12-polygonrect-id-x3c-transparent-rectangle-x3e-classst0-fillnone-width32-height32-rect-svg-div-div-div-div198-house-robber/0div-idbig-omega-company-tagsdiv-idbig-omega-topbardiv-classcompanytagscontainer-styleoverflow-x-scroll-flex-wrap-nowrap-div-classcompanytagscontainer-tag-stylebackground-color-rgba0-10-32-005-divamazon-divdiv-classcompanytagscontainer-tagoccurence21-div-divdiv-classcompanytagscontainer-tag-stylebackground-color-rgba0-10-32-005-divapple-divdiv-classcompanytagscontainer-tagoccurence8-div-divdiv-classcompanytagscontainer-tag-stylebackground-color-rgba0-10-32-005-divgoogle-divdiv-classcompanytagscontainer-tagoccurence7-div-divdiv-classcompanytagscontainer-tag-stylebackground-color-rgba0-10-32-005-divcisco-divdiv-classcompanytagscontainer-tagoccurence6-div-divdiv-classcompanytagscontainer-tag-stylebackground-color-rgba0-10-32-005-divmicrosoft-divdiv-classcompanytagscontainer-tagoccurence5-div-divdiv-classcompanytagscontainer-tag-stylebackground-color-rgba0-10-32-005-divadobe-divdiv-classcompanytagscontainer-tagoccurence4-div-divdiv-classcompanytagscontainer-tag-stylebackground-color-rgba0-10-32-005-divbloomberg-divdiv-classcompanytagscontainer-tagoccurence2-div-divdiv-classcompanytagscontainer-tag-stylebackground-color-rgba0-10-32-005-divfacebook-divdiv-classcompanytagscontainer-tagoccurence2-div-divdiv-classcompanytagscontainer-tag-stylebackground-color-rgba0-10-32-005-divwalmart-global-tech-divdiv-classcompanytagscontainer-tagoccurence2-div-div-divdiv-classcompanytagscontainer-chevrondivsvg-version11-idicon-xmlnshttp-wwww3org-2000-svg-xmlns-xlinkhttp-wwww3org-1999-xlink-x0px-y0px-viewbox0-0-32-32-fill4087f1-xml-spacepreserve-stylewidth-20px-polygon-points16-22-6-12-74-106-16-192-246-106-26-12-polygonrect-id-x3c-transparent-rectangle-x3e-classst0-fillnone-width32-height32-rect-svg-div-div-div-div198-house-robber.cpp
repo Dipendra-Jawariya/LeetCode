@@ -16,17 +16,21 @@ private:
     }
 public:
     int rob(vector<int>& nums) {
+        // Space Optimization
         int n= nums.size();
-        vector<int> dp(n,0);
-        dp[0] = nums[0];
+        // vector<int> dp(n,0);
+        int prev =nums[0];
+        int prev2 = nums[0];
+        // dp[0] = nums[0];
         for(int ind = 1; ind < nums.size(); ind++) {
             int pick = nums[ind];
             if(ind > 1) {
-                pick += dp[ind - 2];
+                pick += prev2;
             }
-            int notPick = dp[ind - 1];
-            dp[ind] = max(pick , notPick);
+            int notPick = prev;
+            prev2 = prev;
+            prev = max(pick , notPick);
         }
-        return dp[n-1];
+        return prev;
     }
 };
