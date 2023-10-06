@@ -1,17 +1,17 @@
 class Solution {
 private:
     int f(int num,vector<int> &dp) {
-        if(num == 1) {
+        if(num <= 2) {
             return 1;
         }
         if(num == 3) return 2;
         if(dp[num] != -1) {
             return dp[num];
         }
-        int maxProd = 1 * (num-1);
+        int maxProd = 0;
         int prod = 0;
-        for(int i = num / 2; i >= 1; i--) {
-            prod = i * max(num-i,f(num - i,dp));
+        for(int i = num; i >= 1; i--) {
+            prod = i * max(num - i, f(num - i,dp));
             maxProd = max(maxProd,prod);
         }
         return dp[num] = maxProd;
