@@ -1,37 +1,27 @@
 class Solution {
+long long mod = 1e9 + 7;
 private:
-    void func(long long n,long long int x,long long &ans,long long mod) {
-        // if(nn <= 0) return;
-        ans = ans % mod;
-        long long nn = n;
-        if(nn < 0) {
-            nn = -1 * nn;
-        }
+    void myPow(long long x,long long n, long long &ans) {
+        if(n <= 0) return;
         
-        while(nn > 0) {
-            // ans = ans % mod;
-            if(nn % 2 == 1) {
-                ans = (ans * x) % mod;
-                nn = nn -1;
-            } else {
-                x = (x * x) % mod;
-                nn = nn / 2;
-            }
+        if(n % 2 == 1) {
+            ans = (ans * x) % mod;
+            n = n -1;
+        } else {
+            x = (x * x) % mod;
+            n = n / 2;
         }
-        // if(n < 0) {
-        //     ans = 1 / ans;
-        // }
+        myPow(x,n,ans);
     }
 public:
     int countGoodNumbers(long long n) {
-        long long odd = n / 2;
-        long long even = n - odd;
-        long long mod = 1e9 + 7;
+        // Recursive Solution
+        long long oddIndx = n / 2;
+        long long evenIndx = n - oddIndx;
+        
         long long ans = 1;
-        long long int evenPos = 5;
-        long long int oddPos = 4;
-        func(even,evenPos,ans,mod);
-        func(odd,oddPos,ans,mod);
-        return (int)ans % mod;
+        myPow(5,evenIndx,ans);
+        myPow(4,oddIndx,ans);
+        return ans;
     }
 };
