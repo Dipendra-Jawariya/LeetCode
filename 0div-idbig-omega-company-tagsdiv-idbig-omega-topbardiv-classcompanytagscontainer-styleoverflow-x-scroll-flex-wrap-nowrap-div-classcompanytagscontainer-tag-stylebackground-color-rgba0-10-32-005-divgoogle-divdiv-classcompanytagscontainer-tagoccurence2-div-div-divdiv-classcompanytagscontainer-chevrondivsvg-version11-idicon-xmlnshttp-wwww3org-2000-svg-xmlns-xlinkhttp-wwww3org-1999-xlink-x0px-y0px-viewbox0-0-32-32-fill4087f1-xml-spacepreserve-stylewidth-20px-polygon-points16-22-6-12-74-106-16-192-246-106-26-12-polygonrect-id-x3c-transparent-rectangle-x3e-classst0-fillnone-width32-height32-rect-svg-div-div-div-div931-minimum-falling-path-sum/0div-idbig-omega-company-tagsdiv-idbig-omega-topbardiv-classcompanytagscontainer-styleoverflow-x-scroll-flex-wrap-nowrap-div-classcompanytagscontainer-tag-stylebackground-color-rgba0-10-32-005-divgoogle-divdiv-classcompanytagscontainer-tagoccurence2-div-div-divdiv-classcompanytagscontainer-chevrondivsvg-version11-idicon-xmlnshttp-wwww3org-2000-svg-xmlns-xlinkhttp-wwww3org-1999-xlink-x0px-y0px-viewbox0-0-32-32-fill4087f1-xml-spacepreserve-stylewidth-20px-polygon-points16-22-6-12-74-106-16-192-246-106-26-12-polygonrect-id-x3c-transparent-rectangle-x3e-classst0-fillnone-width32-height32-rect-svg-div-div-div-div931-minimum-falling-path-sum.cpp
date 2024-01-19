@@ -20,7 +20,7 @@ private:
 public:
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int n = matrix.size();
-        vector<vector<int>> dp(n, vector<int>(n + 1, 0));
+        vector<vector<int>> dp(n, vector<int>(n, 0));
         for(int j = 0; j < n; j++) {
             dp[0][j] = matrix[0][j];
         }
